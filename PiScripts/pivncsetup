@@ -1,0 +1,9 @@
+#!/bin/bash
+clear
+piipadress=$(cat ./PiScripts/ConfigandReference/piipadress.txt)
+piusername=$(cat ./PiScripts/ConfigandReference/piusername.txt)
+echo "Starting VNC"
+echo "Please do not shut down this terminal untill you have finished your VNC Session."
+echo "If you wish to use another utility re-run ./pi from another window."
+sleep 1
+ssh $piusername@$piipadress "x11vnc -forever -nopw"

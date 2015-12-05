@@ -1,0 +1,42 @@
+#!/bin/bash
+sudo umount /dev/mmcblk0
+echo "Big Lovely Joe's Easy Pi Backup and Restore"
+echo ""
+echo "Please select from the below"
+echo ""
+echo "1. Back up sd card"
+echo "2. Write new install image"
+echo "3. Write last backup of image to card"
+echo ""
+read -n1 -p "Please chose an option: " option
+	if [[ $option == "1" ]]; then
+		echo ""
+		echo "Backing up SD card image, please be patient, this could take a while and you will not recieve updates"
+		sudo dd bs=4M if=/dev/mmcblk0 of=PiScripts/PiStuff/SDCardImages/backup.img
+		echo "Action complete"
+	elif [[ $option == "2" ]]; then
+		echo ""
+		echo "Please choose image"
+		echo "1. Wheezy"
+		echo "2. Jessie"
+		echo "3. Jessie Light"
+		read -n1 -p "Please choose an option: " image
+		echo ""
+		echo "Attempting to write image, please be patient, this could take a while and you will not recieve updates"
+		if [[ $image == "1" ]]; then
+			sudo dd bs=4M if=PiScripts/PiStuff/SDCardImages/wheezy.img of=/dev/mmcblk0
+		elif [[ $image == "2" ]]; then
+			sudo dd bs=4M if=PiScripts/PiStuff/SDCardImages/jessie.img of=/dev/mmcblk0
+		elif [[ $image == "3" ]]; then
+			sudo dd bs=4M if=PiScripts/PiStuff/SDCardImages/jessielite.img of=/dev/mmcblk0
+		fi
+		echo "Action complete, please remember to expand file system"
+	elif [[ $option == "3" ]]; then
+		echo ""
+		echo "attempting to write a previous backup image, please be patient, this could take a while and you will not recieve updates"
+		sudo dd bs=4M if=PiScripts/PiStuff/SDCardImages/backup.img of=/dev/mmcblk0
+		echo "Action complete, please remember to expand file system"
+	else
+		echo ""
+		echo "oops somethingh went wrong. Terminating Script. please Re-Run ./pi to try again"
+	fi

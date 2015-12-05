@@ -1,0 +1,6 @@
+#!/bin/bash
+piipadress=$(cat ./PiScripts/ConfigandReference/piipadress.txt)
+piusername=$(cat ./PiScripts/ConfigandReference/piusername.txt)
+clear
+echo "Attenpting to start ssh session"
+ssh $piusername@$piipadress

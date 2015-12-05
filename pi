@@ -1,0 +1,49 @@
+#!/bin/bash
+piipadress=$(cat ./PiScripts/ConfigandReference/piipadress.txt)
+piusername=$(cat ./PiScripts/ConfigandReference/piusername.txt)
+clear
+echo "Big Lovely Joe's Easy Pi Administration Utility"
+echo ""
+echo "This utility uses sudo!!! Please be sure to read and understand the script to ensure you can trust it"
+echo ""
+echo ""
+echo "The IP adress we have stored for your Pi is: $piipadress"
+echo "and your login name is: $piusername"
+echo ""
+read -n1 -p "Is this correct (y/n): " correct
+
+if [[ $correct == "n" ]]; then
+	echo ""
+	echo ""
+	echo "Oh its changed...."
+	read -p "please enter new IP Address: " piipadress
+	read -p "please enter new Pi Username: " piusername	
+	echo "" > ./PiScripts/ConfigandReference/piipadress.txt
+	echo "" > ./PiScripts/ConfigandReference/piusername.txt
+	echo "$piipadress" > ./PiScripts/ConfigandReference/piipadress.txt
+	echo "$piusername" > ./PiScripts/ConfigandReference/piusername.txt
+fi
+
+clear
+echo "Your IP is now stored as $piipadress"
+echo "and your raspberry login name is $piusername"
+echo ""
+echo ""
+echo "please choose from the following options"
+echo ""
+echo ""
+echo "1. SSH Terminal Connection"
+echo "2. Start x11VNC"
+echo "3. Raspberry Pi SD Card New Image and Backup Tool"
+echo "0. Quit"
+
+read -n1 -p "Please chose an option: " option
+
+if [[ $option == "1" ]]; then
+	./PiScripts/startssh	
+elif [[ $option == "2" ]]; then
+	./PiScripts/pivncsetup
+elif [[ $option == "3" ]]; then
+	./PiScripts/pibackup
+
+fi
